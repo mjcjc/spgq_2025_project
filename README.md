@@ -1,0 +1,1 @@
+# spgq_2025_project
