@@ -33,13 +33,20 @@ AniRun은 들판위에서 동물이 살기 위해 음식을 먹으려 달리는 
  일정한 시간 혹은 일정 거리를 지나갈 시 x,y축내에 플레이어가 피해야 하는 것
 7.먹이
  플레이어가 먹으면 먹을수록 점수 시스템을 부여하여 점점 점수가 늘어나고 체력을 아주 조금 늘리게 해주는 것.
-8. 재화
-   일정 스코어를 환산하여 재화로 지급해주는 시스템
+
 # 게임 흐름도
 
 
+
 ![게임진짜 게임시작](https://github.com/user-attachments/assets/75ddb237-6a71-466a-9dc5-a8667933f408)
-![게임시작](https://github.com/user-attachments/assets/26ad96c2-f41c-47ef-b60b-6a960e521472)
+![게임시작](https://github.com/user-attachments/assets/7f96d883-9088-4de4-9673-904383ab3dbf)
 ![시작했을때](https://github.com/user-attachments/assets/ef5974dc-c47a-491e-9da9-2d43cf91f4f9)
 
 # 개발 일정
+
+
+|주차|날짜(예상)|내용|
+|------|---|---|
+|1주차|4월8일주|테스트3|
+|2주차|4월15주|테스트3|
+|3주차|4월22주|테스트3|
