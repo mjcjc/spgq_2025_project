@@ -14,15 +14,15 @@ public class AnimSprite extends Sprite {
     }
     public AnimSprite(int mipmapId, float fps, int frameCount) {
         super(mipmapId);
-        this.fps = fps;
         srcRect = new Rect();
         createdOn = System.currentTimeMillis();
         if (bitmap != null) {
-            setFrameInfo(frameCount);
+            setFrameInfo(fps, frameCount);
         }
     }
 
-    private void setFrameInfo(int frameCount) {
+    private void setFrameInfo(float fps, int frameCount) {
+        this.fps = fps;
         int imageWidth = bitmap.getWidth();
         int imageHeight = bitmap.getHeight();
         if (frameCount == 0) {
@@ -40,8 +40,7 @@ public class AnimSprite extends Sprite {
     }
     public void setImageResourceId(int mipmapId, float fps, int frameCount) {
         super.setImageResourceId(mipmapId);
-        this.fps = fps;
-        setFrameInfo(frameCount);
+        setFrameInfo(fps, frameCount);
     }
 
     @Override

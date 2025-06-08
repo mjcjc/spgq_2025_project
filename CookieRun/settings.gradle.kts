@@ -19,7 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CookieRun"
+rootProject.name = "DragonFlight"
 include(":app")
-include(":a2dg")
- 
+include("a2dg")

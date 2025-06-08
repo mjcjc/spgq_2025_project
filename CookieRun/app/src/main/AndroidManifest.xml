@@ -10,17 +10,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CookieRun"
+        android:theme="@style/Theme.DragonFlight"
         tools:targetApi="31">
         <activity
-            android:name=".app.CookieRunActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="landscape"
+            android:name=".app.DragonFlightActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".app.MainActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="landscape"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

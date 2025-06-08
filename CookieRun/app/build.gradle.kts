@@ -3,15 +3,15 @@ plugins {
 }
 
 android {
-    namespace = "kr.ac.tukorea.ge.scgyong.cookierun"
+    namespace = "kr.ac.tukorea.ge.scgyong.dragonflight"
     compileSdk = 35
 
     buildFeatures {
-        viewBinding = true
         buildConfig = true
     }
+    
     defaultConfig {
-        applicationId = "kr.ac.tukorea.ge.scgyong.cookierun"
+        applicationId = "kr.ac.tukorea.ge.scgyong.dragonflight"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+
     implementation(project(":a2dg"))
     implementation(libs.appcompat)
     implementation(libs.material)

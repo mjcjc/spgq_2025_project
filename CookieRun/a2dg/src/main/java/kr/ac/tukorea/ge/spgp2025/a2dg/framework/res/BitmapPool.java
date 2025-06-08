@@ -27,8 +27,4 @@ public class BitmapPool {
         }
         return bitmap;
     }
-    public static void clear() {
-        opts = null;
-        bitmaps.clear();
-    }
 }
