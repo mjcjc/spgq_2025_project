@@ -11,20 +11,20 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IRecyclable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.AnimSprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.Gauge;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
 public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, ILayerProvider<MainScene.Layer> {
     private static final float SPEED = 300f;
     private static final float RADIUS = 90f;
     private static final int[] resIds = {
-            R.mipmap.enemy_01, R.mipmap.enemy_02, R.mipmap.enemy_03, R.mipmap.enemy_04, R.mipmap.enemy_05,
-            R.mipmap.enemy_06, R.mipmap.enemy_07, R.mipmap.enemy_08, R.mipmap.enemy_09, R.mipmap.enemy_10,
-            R.mipmap.enemy_11, R.mipmap.enemy_12, R.mipmap.enemy_13, R.mipmap.enemy_14, R.mipmap.enemy_15,
-            R.mipmap.enemy_16, R.mipmap.enemy_17, R.mipmap.enemy_18, R.mipmap.enemy_19, R.mipmap.enemy_20,
+            R.mipmap.rock_1,R.mipmap.rock_2,R.mipmap.rock_3
     };
     public static final int MAX_LEVEL = resIds.length - 1;
     private int level;
     private int life, maxLife;
+    Random rand = new Random();
+    boolean setFirst;
     protected RectF collisionRect = new RectF();
     protected static Gauge gauge = new Gauge(0.1f, R.color.enemy_gauge_fg, R.color.enemy_gauge_bg);
     public static Enemy get(int level, int index) {
@@ -34,10 +34,10 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
         super(0, 0, 0);
     }
     private Enemy init(int level, int index) {
-        Random rand = new Random();
+
         this.setImageResourceId(resIds[level], 10);
         int selectRand = rand.nextInt(4);
-        switch(3){
+        switch(selectRand){
             case 0:
                 x = rand.nextFloat()* Metrics.width;
                 y = RADIUS;
@@ -55,23 +55,41 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
                 y = rand.nextFloat() *Metrics.height;
                 break;
         }
+        setFirst = false;
         setPosition(x, y, RADIUS);
         updateCollisionRect();
         this.level = level;
         this.life = this.maxLife = (level + 1) * 10;
-        enermyDir();
+
+       enermyDir();
         return this;
     }
-
     private void enermyDir() {
-        float tx = Metrics.width / 2f;
-        float ty = Metrics.height / 2f;
-        float dxRaw = tx - x;
-        float dyRaw = ty - y;
-
-        float length = (float)Math.sqrt(dxRaw * dxRaw + dyRaw * dyRaw);
-        dx = (dxRaw / length) * SPEED;
-        dy = (dyRaw / length) * SPEED;
+        if(0 == x && Metrics.height/2 < y){
+            dx = SPEED;
+            dy = -SPEED;
+        }else if(0 == x && Metrics.height/2 > y ){
+            dx =  SPEED;
+            dy =  SPEED;
+        }else if(Metrics.width/2 > x  && Metrics.height/2 > y){
+            dx =  SPEED;
+            dy = -SPEED;
+        }else if(Metrics.width/2 > x && Metrics.height/2 < y ){
+            dx = SPEED;
+            dy = SPEED;
+        }else if(Metrics.width/2 < x && Metrics.height/2 > y){
+            dx = -SPEED;
+            dy = SPEED;
+        }else if(Metrics.width/2 < x && Metrics.height/2 < y){
+            dx = -SPEED;
+            dy = SPEED;
+        }else if(Metrics.width + RADIUS == x && Metrics.height/2 < y){
+            dx = -SPEED;
+            dy = -SPEED;
+        }else if(Metrics.width + RADIUS == x && Metrics.height/2 > y ){
+            dx =  -SPEED;
+            dy =  SPEED;
+        }
     }
 
 
@@ -86,12 +104,25 @@ public class Enemy extends AnimSprite implements IRecyclable, IBoxCollidable, IL
 
     @Override
     public void update() {
-        super.update();
-        if (dstRect.top > Metrics.height) {
-            Scene.top().remove(this);
-        } else {
-            updateCollisionRect();
+        x += dx * GameView.frameTime;
+        y += dy * GameView.frameTime;
+
+        float halfWidth = width / 2f;
+        float halfHeight = height / 2f;
+
+
+        if (x < halfWidth || x > Metrics.width - halfWidth) {
+            dx = -dx;
+            x = Math.max(halfWidth, Math.min(x, Metrics.width - halfWidth));
         }
+
+        if (y < halfHeight || y > Metrics.height - halfHeight) {
+            dy = -dy;
+            y = Math.max(halfHeight, Math.min(y, Metrics.height - halfHeight));
+        }
+
+        setPosition(x, y, radius);
+        updateCollisionRect();
     }
 
     @Override

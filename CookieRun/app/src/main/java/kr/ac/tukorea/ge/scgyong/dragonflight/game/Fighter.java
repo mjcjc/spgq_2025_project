@@ -7,6 +7,7 @@ import android.graphics.RectF;
 import android.view.MotionEvent;
 
 import kr.ac.tukorea.ge.scgyong.dragonflight.R;
+import kr.ac.tukorea.ge.spgp2025.a2dg.framework.interfaces.IBoxCollidable;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.objects.Sprite;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.res.BitmapPool;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.scene.Scene;
@@ -14,13 +15,13 @@ import kr.ac.tukorea.ge.spgp2025.a2dg.framework.util.RectUtil;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.GameView;
 import kr.ac.tukorea.ge.spgp2025.a2dg.framework.view.Metrics;
 
-public class Fighter extends Sprite {
+public class Fighter extends Sprite implements IBoxCollidable {
     private static final String TAG = Fighter.class.getSimpleName();
     private static final float PLANE_WIDTH = 175f;
     private static final int PLANE_SRC_WIDTH = 80;
     private static final float SPEED = 300f;
     private float targetX;
-
+    private int life = 1;
     private float targetY;
     private static final float FIRE_INTERVAL = 0.25f;
     private float fireCoolTime = FIRE_INTERVAL;
@@ -34,9 +35,11 @@ public class Fighter extends Sprite {
     private Bitmap sparkBitmap;
     private static final float MAX_ROLL_TIME = 0.4f;
     private float rollTime;
+    private MainScene scene;
 
-    public Fighter() {
+    public Fighter(MainScene scene) {
         super(R.mipmap.fighters);
+        this.scene = scene;
         setPosition(Metrics.width / 2, Metrics.height - 400, PLANE_WIDTH, PLANE_WIDTH);
         targetX = x;
         targetY = y;
@@ -86,13 +89,24 @@ public class Fighter extends Sprite {
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
-        if (FIRE_INTERVAL - fireCoolTime < SPARK_DURATION) {
-            RectUtil.setRect(sparkRect, x, y - SPARK_OFFSET, SPARK_WIDTH, SPARK_HEIGHT);
-            canvas.drawBitmap(sparkBitmap, null, sparkRect, null);
-        }
+        float angle = (float)Math.toDegrees(Math.atan2(dy, dx));
+
+        canvas.save();
+        canvas.translate(x, y);
+        canvas.rotate(angle);
+        float halfW = dstRect.width() / 2;
+        float halfH = dstRect.height() / 2;
+        Rect dst = new Rect((int)-halfW, (int)-halfH, (int)halfW, (int)halfH);
+        canvas.drawBitmap(bitmap, srcRect, dst, null);
+        canvas.restore();
     }
 
+    public RectF getCollisionRect() {
+        return dstRect;
+    }
+    public void die() {
+        scene.endGame();
+    }
     private void fireBullet() {
         fireCoolTime -= GameView.frameTime;
         if (fireCoolTime > 0) {

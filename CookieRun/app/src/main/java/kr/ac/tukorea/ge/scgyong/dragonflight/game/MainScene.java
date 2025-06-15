@@ -21,10 +21,9 @@ public class MainScene extends Scene {
         //Metrics.setGameSize(900, 1600); default=900x1600
         initLayers(Layer.COUNT);
 
-        add(Layer.bg1, new VertScrollBackground(R.mipmap.bg_city, 20));
-        add(Layer.bg2, new VertScrollBackground(R.mipmap.clouds, 40));
+        add(Layer.bg1, new VertScrollBackground(R.mipmap.astrobg, 20));
 
-        this.fighter = new Fighter();
+        this.fighter = new Fighter(this);
         add(Layer.fighter, fighter);
 
         this.score = new Score(R.mipmap.number_24x32, 850f, 50f, 60f);
@@ -33,6 +32,11 @@ public class MainScene extends Scene {
 
         add(Layer.controller, new EnemyGenerator(this));
         add(Layer.controller, new CollisionChecker(this));
+
+    }
+
+    public Fighter getFighter() {
+        return fighter;
     }
     public void addScore(int amount) {
         score.add(amount);
@@ -40,7 +44,9 @@ public class MainScene extends Scene {
     public int getScore() {
         return score.getScore();
     }
-
+    public void endGame() {
+       new GameOverScene().push();
+    }
     // Overridables
 
     @Override

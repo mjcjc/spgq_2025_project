@@ -36,6 +36,15 @@ public class CollisionChecker implements IGameObject {
                 }
             }
         }
+        Fighter fighter = scene.getFighter(); // MainScene에 추가해줘야 함
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+            Enemy enemy = (Enemy)enemies.get(i);
+            if (CollisionHelper.collides(enemy, fighter)) {
+                fighter.die();  // 생명 감소
+                scene.remove(MainScene.Layer.enemy, enemy);  // 적 제거
+                break;
+            }
+        }
     }
 
     @Override
