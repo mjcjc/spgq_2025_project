@@ -38,7 +38,11 @@ As
 # 게임 흐름도
 
 ![시작](https://github.com/user-attachments/assets/9d1b966a-c4f8-415f-b63b-404e4b7d8a4d)
+
+
 ![게임 할때 화면](https://github.com/user-attachments/assets/b45f8226-4c2d-4adf-b9ab-9ecf3ff5402e)
+
+
 ![끝날때](https://github.com/user-attachments/assets/8c20f9cb-6962-4f22-9801-3fee0316d528)
 
 # 개발 일정
