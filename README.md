@@ -37,9 +37,9 @@ As
 
 # 게임 흐름도
 
-![메인화면](https://github.com/user-attachments/assets/75ddb237-6a71-466a-9dc5-a8667933f408)
-![게임시작](https://github.com/user-attachments/assets/7f96d883-9088-4de4-9673-904383ab3dbf)
-![게임이 끝났을때](https://github.com/user-attachments/assets/ef5974dc-c47a-491e-9da9-2d43cf91f4f9)
+![시작](https://github.com/user-attachments/assets/9d1b966a-c4f8-415f-b63b-404e4b7d8a4d)
+![게임 할때 화면](https://github.com/user-attachments/assets/b45f8226-4c2d-4adf-b9ab-9ecf3ff5402e)
+![끝날때](https://github.com/user-attachments/assets/8c20f9cb-6962-4f22-9801-3fee0316d528)
 
 # 개발 일정
 
